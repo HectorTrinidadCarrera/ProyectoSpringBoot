@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Ciudad</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        @keyframes dropFromTop {
+            0% {
+                opacity: 0;
+                transform: translateY(-40px) scale(0.96);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .animate-drop-down {
+            animation: dropFromTop 0.32s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="] min-h-screen p-4 sm:p-8 flex items-center justify-center">
+
+    <div class="w-full max-w-lg bg-white rounded-[28px] shadow-2xl border border-slate-100 p-6 sm:p-8 animate-drop-down">
+        
+        <!-- Header -->
+        <div class="flex items-center justify-between pb-4 mb-6 border-b border-slate-100">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-[#ede9fe] text-[#5b36f5] flex items-center justify-center font-bold">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-xl font-extrabold text-slate-800" th:text="${city.id != null ? 'Editar Ciudad' : 'Nueva Ciudad'}">Formulario Ciudad</h2>
+                    <p class="text-xs text-slate-400">Ingresa los detalles del registro</p>
+                </div>
+            </div>
+            <a href="/" class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Form -->
+        <form th:action="@{/guardar}" th:object="${city}" method="post" class="space-y-4">
+            <input type="hidden" th:field="*{id}" />
+
+            <div>
+                <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">Nombre de Ciudad</label>
+                <input type="text" th:field="*{name}" required placeholder="Ej. Barcelona"
+                       class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#5b36f5]/20 focus:border-[#5b36f5] transition-all placeholder:text-slate-400 text-slate-800 font-medium" />
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">País (Código)</label>
+                    <input type="text" th:field="*{countryCode}" required placeholder="Ej. ESP" maxlength="3"
+                           class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#5b36f5]/20 focus:border-[#5b36f5] transition-all placeholder:text-slate-400 text-slate-800 font-medium uppercase" />
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">Distrito</label>
+                    <input type="text" th:field="*{district}" required placeholder="Ej. Cataluña"
+                           class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#5b36f5]/20 focus:border-[#5b36f5] transition-all placeholder:text-slate-400 text-slate-800 font-medium" />
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">Población</label>
+                <input type="number" th:field="*{population}" required placeholder="Ej. 1620000"
+                       class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#5b36f5]/20 focus:border-[#5b36f5] transition-all placeholder:text-slate-400 text-slate-800 font-medium" />
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center justify-end gap-3 pt-6 mt-6 border-t border-slate-100">
+                <a href="/" class="px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-full transition-all">
+                    Cancelar
+                </a>
+                <button type="submit" 
+                        class="px-7 py-2.5 bg-[#5b36f5] hover:bg-[#4b26e0] active:scale-95 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-md hover:shadow-lg transition-all duration-200">
+                    Guardar
+                </button>
+            </div>
+        </form>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Principal - Mi Sistema</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        @keyframes dropFromTop {
+            0% {
+                opacity: 0;
+                transform: translateY(-40px) scale(0.96);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .animate-drop-down {
+            animation: dropFromTop 0.32s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+
+<body class=" min-h-screen p-4 sm:p-8 flex flex-col justify-center items-center">
+
+    <!-- Main Container -->
+    <div class="w-full max-w-5xl bg-white rounded-[28px] shadow-2xl p-6 sm:p-10 animate-drop-down transition-all duration-300">
+        
+        <!-- Header / Navigation Bar -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-slate-100">
+            <!-- Brand / Logo -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[#ede9fe] text-[#5b36f5] flex items-center justify-center font-bold shadow-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold text-slate-800 tracking-tight">Mi Sistema</h1>
+                    <p class="text-xs text-slate-400">Panel de Administración General</p>
+                </div>
+            </div>
+
+            <!-- User Info & Logout Button -->
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 px-3.5 py-1.5 bg-slate-50 border border-slate-200/80 rounded-full text-xs text-slate-600">
+                    <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                    <span>Usuario: <strong class="text-slate-800 font-bold" th:text="${username}">admin</strong></span>
+                </div>
+
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" 
+                            class="inline-flex items-center gap-1.5 px-4 py-2 bg-[#fee2e2] hover:bg-[#ef4444] text-[#ef4444] hover:text-white text-xs font-bold uppercase tracking-wider rounded-full transition-all duration-150 shadow-sm">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                        </svg>
+                        <span>Cerrar sesión</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Welcome Banner -->
+        <div class="my-8 p-6 bg-[#fcf8f2] rounded-2xl border border-orange-100/60 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 mb-2">
+                    👋 Bienvenido
+                </span>
+                <h2 class="text-2xl font-extrabold text-slate-800">
+                    ¡Hola de nuevo, <span class="text-[#5b36f5]" th:text="${username}">Usuario</span>!
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Selecciona uno de los módulos para comenzar a trabajar en la plataforma.</p>
+            </div>
+            <div>
+                <a href="/" 
+                   class="inline-flex items-center gap-2 px-6 py-2.5 bg-[#5b36f5] hover:bg-[#4b26e0] active:scale-95 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-md hover:shadow-lg transition-all duration-200">
+                    <span>Ir a Ciudades</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Dashboard Modules Cards Grid -->
+        <div class="mb-4">
+            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Módulos Disponibles</h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                
+                <!-- Card 1: Ciudades -->
+                <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-violet-200 transition-all duration-200 flex flex-col justify-between">
+                    <div>
+                        <div class="w-10 h-10 rounded-full bg-[#ede9fe] text-[#5b36f5] flex items-center justify-center mb-4">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                            </svg>
+                        </div>
+                        <h4 class="text-base font-bold text-slate-800">Ciudades</h4>
+                        <p class="text-xs text-slate-400 mt-1 mb-4">Gestión completa de ciudades, códigos y población.</p>
+                    </div>
+                    <a href="/" class="w-full text-center py-2 bg-[#5b36f5] hover:bg-[#4b26e0] text-white text-xs font-bold uppercase tracking-wider rounded-full transition-colors block">
+                        Gestionar
+                    </a>
+                </div>
+
+                <!-- Card 2: Usuarios -->
+                <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-200 flex flex-col justify-between">
+                    <div>
+                        <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mb-4">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                            </svg>
+                        </div>
+                        <h4 class="text-base font-bold text-slate-800">Usuarios</h4>
+                        <p class="text-xs text-slate-400 mt-1 mb-4">Control de cuentas, credenciales y asignación de roles.</p>
+                    </div>
+                    <a href="#" class="w-full text-center py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider rounded-full transition-colors block">
+                        Ver
+                    </a>
+                </div>
+
+                <!-- Card 3: Productos -->
+                <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all duration-200 flex flex-col justify-between">
+                    <div>
+                        <div class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                            </svg>
+                        </div>
+                        <h4 class="text-base font-bold text-slate-800">Productos</h4>
+                        <p class="text-xs text-slate-400 mt-1 mb-4">Catálogo de productos, inventario y disponibilidad.</p>
+                    </div>
+                    <a href="#" class="w-full text-center py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider rounded-full transition-colors block">
+                        Ver
+                    </a>
+                </div>
+
+                <!-- Card 4: Reportes -->
+                <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-amber-200 transition-all duration-200 flex flex-col justify-between">
+                    <div>
+                        <div class="w-10 h-10 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mb-4">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                        </div>
+                        <h4 class="text-base font-bold text-slate-800">Reportes</h4>
+                        <p class="text-xs text-slate-400 mt-1 mb-4">Métricas estadísticas y exportación de datos del sistema.</p>
+                    </div>
+                    <a href="#" class="w-full text-center py-2 bg-[#f0a824] hover:bg-[#e09b1f] text-white text-xs font-bold uppercase tracking-wider rounded-full transition-colors block">
+                        Ver
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
