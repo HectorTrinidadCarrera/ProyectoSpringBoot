@@ -11,12 +11,12 @@ public class AuthController {
     // Controlador para manejar las rutas de autenticación y autorización
   @GetMapping("/login")
     public String login() {
-        return "login";
+        return "auth/login";
     }
 
     @GetMapping("/home")
     public String home(Principal principal, Model model) {
         model.addAttribute("username", principal.getName());
-        return "home";
+        return "dashboard/home";
     }
 }

@@ -64,6 +64,7 @@
                 <div>
                     <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">País (Código)</label>
                     <input type="text" th:field="*{countryCode}" required placeholder="Ej. ESP" maxlength="3"
+                           oninput="this.value=this.value.toUpperCase()"
                            class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#5b36f5]/20 focus:border-[#5b36f5] transition-all placeholder:text-slate-400 text-slate-800 font-medium uppercase" />
                 </div>
 

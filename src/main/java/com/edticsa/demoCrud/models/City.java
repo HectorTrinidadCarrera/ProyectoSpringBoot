@@ -62,8 +62,8 @@ public class City {
     public void setPopulation(Integer population) {
         this.population = population;
     }
-    
-    
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -78,6 +78,5 @@ public class City {
     private Integer population;
 
     // getters y setters
-    
-    
+
 }
